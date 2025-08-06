@@ -1,51 +1,243 @@
-.main {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 6rem;
+/* General section styling to create distinct, full-screen sections */
+.pageSection {
+    position: relative;
     height: 100vh;
-}
-
-.contents h1 {
-    text-transform: uppercase;
+    width: 100%;
+    overflow: hidden;
     color: white;
-    letter-spacing: 1.5rem;
-    font-weight: 500;
-    padding: 2rem 0;
-    font-size: 2rem;
+    /* REMOVED mask-image properties */
 }
 
-.buttons {
+/* NEW: Unique styles for the About section */
+.aboutSection {
+    /* Set the image background */
+    background-image: url('/herb-bg.png'); /* Make sure this image is in your /public folder */
+    background-size: cover;
+    background-position: center;
+
+    /* Use flexbox to center the content container */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.buttons button {
-    padding: 1.5rem 2rem;
-    margin: 0 1rem;
-    background-color: transparent;
-    border: solid white 1px;
-    font-size: 12px;
+/* --- Fixed Header & Navigation --- */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1rem 2rem; 
+    box-sizing: border-box;
+}
+
+.leftNavContainer {
+    display: flex;
+    align-items: center;
+    gap: 3rem; 
+    pointer-events: all; 
+}
+
+.topLeftLogo {
+    width: 90px;
+    height: auto;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.topLeftLogo:hover {
+    transform: scale(1.1);
+}
+
+.mainNav {
+    display: flex;
+    gap: 2rem;
+}
+
+.topLink {
     color: white;
+    font-size: 1rem;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.5rem;
-    transition: 0.25s background-color;
+    text-decoration: none;
+    letter-spacing: 0.1rem;
+    transition: color 0.3s;
+    padding: 0.5rem 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-.buttons button:hover {
-    background-color: white;
-    color: black;
-    transition: 0.25s background-color;
-    cursor: pointer;
+.topLink:hover {
+    color: #ccc;
 }
 
-.video {
+
+/* --- Section Backgrounds --- */
+.videoBackground {
     position: absolute;
-    z-index: -1;
+    top: 0;
+    left: 0;
     height: 100%;
     width: 100%;
     object-fit: cover;
+    z-index: -2;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+/* --- Section Content --- */
+.mainContent {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.mainLogo {
+    max-width: 20%;
+    min-width: 10%;
+    height: auto;
+}
+
+.leftSidebarText {
+    position: absolute;
+    left: 2rem;
+    bottom: 2rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+}
+
+/* NEW: A flex container for the About text and Event list */
+.aboutContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 80%;
+    gap: 4rem;
+    z-index: 2;
+}
+
+/* NEW: Styles specifically for the "About Us" text block */
+.aboutText {
+    max-width: 45ch;
+}
+
+.aboutText h2, .aboutText p {
+    margin: 0;
+}
+
+/* This class is now only for pages with free-flowing text (like Contact) */
+.sectionContent {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 45ch;
+    z-index: 2;
+}
+
+.contactContent {
+    left: auto;
+    right: 10%;
+    text-align: right;
+}
+
+.sectionContent h2, .aboutText h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.sectionContent p, .aboutText p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+/* --- Event List Styles --- */
+.eventList {
+    text-align: right;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    
+}
+
+.eventList h3 {
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.eventItem {
+    display: grid;
+    grid-template-columns: 120px 1fr 120px;
+    gap: 1.5rem;
+    padding: 0.75rem 0;
+    transition: opacity 0.3s;
+}
+
+.pastEvent {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+/* --- Responsive Styles for Mobile --- */
+@media (max-width: 768px) {
+
+    /* Stack the "About" text and event list vertically */
+    .aboutContainer {
+        flex-direction: column;
+        align-items: center; /* Center the items in the column */
+        width: 90%; /* Use more of the screen width */
+        gap: 3rem;
+    }
+
+    /* Center the "About Us" text block on mobile */
+    .aboutText {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    /* Center the event list and make it take full width */
+    .eventList {
+        text-align: center;
+        width: 100%;
+    }
+
+    /* Change the event item from a 3-column grid to a single column */
+    .eventItem {
+        grid-template-columns: 1fr; /* Use one column that takes all space */
+        gap: 0.5rem; /* Reduce space between date/name/location */
+        text-align: center;
+        padding: 1rem 0;
+    }
+
+    /* Reduce font sizes for better readability on small screens */
+    .aboutText h2,
+    .sectionContent h2 {
+        font-size: 2.2rem;
+    }
+
+    .eventList h3 {
+        font-size: 1rem;
+    }
+
+    .eventItem,
+    .aboutText p,
+    .sectionContent p {
+        font-size: 1rem;
+    }
 }
